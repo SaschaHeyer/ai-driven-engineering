@@ -14,7 +14,7 @@ You are running the `/issue` custom command. Follow this flow every time:
 
 2. Inspect existing issue data
    - Use the Linear MCP to fetch the issue description.
-   - If a `## PDR` section already exists and contains a complete PRD, show it to the user and confirm whether they want to replace it or keep it.
+   - If a `## PRD` section already exists and contains a complete PRD, show it to the user and confirm whether they want to replace it or keep it.
    - If no usable PRD exists (missing section, placeholder content, or user requests an update), continue with the clarifying-question loop.
 
 3. Enforce the PRD clarifying-question loop
@@ -45,8 +45,8 @@ You are running the `/issue` custom command. Follow this flow every time:
 
 5. Sync the PRD back to Linear via the MCP integration
    - Fetch the current description of the Linear issue.
-   - Insert (or replace) a `## PDR` section containing the PRD you just generated. Keep other description content intact.
-   - Update the issue description with the new `## PDR` section.
+   - Insert (or replace) a `## PRD` section containing the PRD you just generated. Keep other description content intact.
+   - Update the issue description with the new `## PRD` section.
    - Optionally add a short issue comment noting that the PRD was created and attached.
 
 6. Report completion

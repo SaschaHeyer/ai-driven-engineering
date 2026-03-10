@@ -16,7 +16,7 @@ There might be hundret of files use effective strategy that minimizes tool calls
 
 ## 1. Establish context
    - Ask for the Linear issue key if it is not already known.
-   - Before touching git, confirm you are inside the repo that owns the ticket. If the current directory doesn’t contain a `.git` folder, scan upward and across known sibling repos (e.g., via `find .. -maxdepth 4 -name .git`) until you locate the correct root, then `cd` there before continuing.
+   - Before touching git, confirm you are inside the repo or worktree that owns the ticket. Use `git rev-parse --show-toplevel` to identify the current root. If you are not inside a git repository, scan upward and across known sibling repos until you locate the correct root, then `cd` there before continuing.
    - Fetch the current issue description via the Linear MCP.
    - Locate the `## PLAN` section. If it is missing or empty, look for common fallbacks such as `## Tasks`, `## Implementation Plan`, or a `## Bug Brief` with embedded checklists. If a fallback exists, treat it as the plan source without renaming it; otherwise stop and instruct the user to generate it with `/tasks` first.
    - Parse the plan into Relevant Files, Notes, and the checkbox task list.
@@ -63,5 +63,7 @@ IMPORTANT:
 Use a worktree**
    ```bash
    skill: git-worktree
-   # The skill will create a new branch from the default branch in an isolated worktree
+   # The skill will create a new branch from the default branch in an isolated worktree.
+   # Evaluate the codebase for local files that might be needed (like .env) and ensure 
+   # they are copied from the original repo into the new worktree.
    ```

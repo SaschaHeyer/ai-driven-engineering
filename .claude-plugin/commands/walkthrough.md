@@ -52,11 +52,11 @@ If the changes involve UI elements (React, HTML, CSS), you MUST create a visual 
 - **Upload Attachments**:we do not upload the screenshot to linear (the attachment tool is currently not working).
 
 ## 5. Local Walkthrough Artifact
-- Create a `walkthrough.md` file in the project root.
+- Create a `walkthrough.md` file in the root of the current worktree (or project root if not using worktrees).
 - This file should contain:
     - The narrative summary.
     - The visual storyboard with local relative paths to the screenshots.
-- Ensure the screenshot files are saved in a stable location (e.g., `./walkthrough/`) and referenced correctly in the markdown.
+- Ensure the screenshot files are saved in a stable location (e.g., `./walkthrough/` within the worktree) and referenced correctly in the markdown.
 
 ## 6. GIF Creation (Optional)
 If multiple screenshots were taken and `ffmpeg` is available on the system:

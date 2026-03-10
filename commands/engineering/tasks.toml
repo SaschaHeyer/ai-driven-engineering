@@ -8,7 +8,7 @@ You are running the `/tasks` custom command. Follow this flow every time:
 
 2. Inspect the Linear issue
    - Fetch the issue description via the Linear MCP.
-   - If exactly one `## PDR` section exists, use it automatically and confirm back to the user which PRD you found.
+   - If exactly one `## PRD` section exists, use it automatically and confirm back to the user which PRD you found.
    - If multiple PRD sections exist, list them and ask the user to choose which one to use.
    - If no PRD section is present:
      * If the ticket is a bug (e.g., Linear issue type is bug or it already contains a `## Bug Brief`), proceed by treating the bug brief and diagnosis notes as the functional source of truth—call this out to the user but do not force a PRD.

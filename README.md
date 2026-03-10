@@ -123,7 +123,7 @@ It all starts here. The biggest risk isn't writing the wrong code—it's buildin
 
 1.  **Pull Context**: The agent grabs the Linear issue through the MCP, ingesting any title, notes, or prior context.
 2.  **Clarifying Loop**: It drives a targeted question-and-answer session to help you think through the entire feature (Goal, User Stories, Edge Cases).
-3.  **Draft PRD**: With those answers, the agent writes a clean **Product Requirements Document (PRD)** (Intro, Goals, User Stories, Functional Requirements, Metrics) and inserts it as a `## PDR` section in the Linear ticket.
+3.  **Draft PRD**: With those answers, the agent writes a clean **Product Requirements Document (PRD)** (Intro, Goals, User Stories, Functional Requirements, Metrics) and inserts it as a `## PRD` section in the Linear ticket.
 
 *We are not coding yet. This is just refining what we actually need.*
 
@@ -182,8 +182,8 @@ This extension includes specialized agent skills and integrations to assist in t
 ### 1. `git-worktree`
 Manages Git worktrees to allow isolated, parallel development. Instead of switching branches in your main directory, this skill:
 - Creates a new isolated worktree and branch for the feature or bug (e.g., `worktrees/feature/<ticket-id>`).
-- Copies over necessary environment files (like `.env`).
-- Ensures you can have multiple agents working on different tickets simultaneously without overlapping.
+- Evaluates the codebase for local files (like `.env` or configurations) and **copies** them from the original repository into the worktree.
+- Ensures you can have multiple agents working on different tickets simultaneously without overlapping while maintaining a functional local environment.
 
 ### 2. `document-learnings`
 A frictionless way to capture solved problems and project-specific knowledge.

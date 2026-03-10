@@ -1,6 +1,6 @@
 ---
 name: git-worktree
-description: Manages Git worktrees for isolated parallel development. Creates branches (linking ticket IDs if available), copies .env files, and pushes changes to the remote.
+description: Manages Git worktrees for isolated parallel development. Creates branches (linking ticket IDs if available), copies local environment files, and pushes changes to the remote.
 ---
 
 # GitHub Worktree Workflow
@@ -36,11 +36,22 @@ git worktree add worktrees/feature/<ticket-id> -b feature/<ticket-id> origin/dev
 ```
 *(Use `bug/<ticket-id>` if it is a bug fix instead of a feature).*
 
-### 3. Copy Environment Files (CRITICAL)
-Immediately after creating the worktree, copy all `.env` files from the main repository root into the new worktree so the application can run properly.
+### 3. Copy Local Environment Files (CRITICAL)
+Immediately after creating the worktree, evaluate the main repository root for files that are required for local development and testing but are excluded from version control (e.g., `.env` files, local configurations, or credentials). Copy these files from the original repository into the new worktree to ensure consistency and a functional test environment.
 
 ```bash
-cp .env* worktrees/feature/<ticket-id>/ 2>/dev/null || true
+# 1. Identify local files that are ignored by git but exist in the root
+# Ignore obvious build artifacts like node_modules or dist
+git clean -ndX | grep -vE "node_modules|dist|build|\.next|\.cache"
+
+# 2. Copy identified files (e.g., .env files) into the worktree
+# Note: Ensure you are in the repository root when running this
+for file in .env*; do
+  if [ -f "$file" ]; then
+    cp "$file" "worktrees/feature/<ticket-id>/$file"
+  fi
+done
+# Repeat this pattern for other necessary local files identified in step 1
 ```
 
 ### 4. Work and Iterate
