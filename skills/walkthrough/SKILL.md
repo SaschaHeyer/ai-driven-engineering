@@ -1,8 +1,9 @@
 ---
-description: Generates a visual walkthrough and narrative summary of the implemented changes in Linear.
+name: walkthrough
+description: Generate a narrative summary and visual storyboard (browser screenshots) of completed changes and sync it to the Linear issue. Use after implementation to produce a human-readable walkthrough and visual proof of what was built for reviewers and stakeholders.
 ---
 
-You are running the `/walkthrough` command. Your goal is to provide a "Visual Storyboard" and a concise narrative summary of the work just completed.
+You are running the **walkthrough** skill. Your goal is to provide a "Visual Storyboard" and a concise narrative summary of the work just completed.
 
 ## 1. Context Gathering
 - Ask for the Linear issue key if not known.

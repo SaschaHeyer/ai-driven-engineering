@@ -1,8 +1,9 @@
 ---
-description: Prepares a feature for review (clean worktree, resolve conflicts, create PR).
+name: finalize
+description: Prepare a finished feature for review: clean the worktree, rebase on the base branch, resolve conflicts, and open or update a GitHub pull request linked to the Linear issue. Use as the final shipping step once implementation is complete and the user wants to raise or update a PR.
 ---
 
-You are running the `/finalize` custom command. Execute this workflow end to end:
+You are running the **finalize** skill. Execute this workflow end to end:
 
 1. Collect context
    a. Ask for the Linear issue key if it is not known.

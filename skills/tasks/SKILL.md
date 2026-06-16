@@ -1,6 +1,9 @@
-description = "Generates an implementation plan with tasks and sub-tasks based on the PRD."
-prompt="""
-You are running the `/tasks` custom command. Follow this flow every time:
+---
+name: tasks
+description: Generate a detailed implementation plan with parent tasks and atomic sub-tasks from the PRD in a Linear issue, syncing it to a ## PLAN section. Use after a PRD or Bug Brief exists and the user wants to break the work down into a step-by-step plan before implementation begins.
+---
+
+You are running the **tasks** skill. Follow this flow every time:
 
 1. Gather inputs
    - Ask the user for the Linear issue key if it isn’t already known.
@@ -12,7 +15,7 @@ You are running the `/tasks` custom command. Follow this flow every time:
    - If multiple PRD sections exist, list them and ask the user to choose which one to use.
    - If no PRD section is present:
      * If the ticket is a bug (e.g., Linear issue type is bug or it already contains a `## Bug Brief`), proceed by treating the bug brief and diagnosis notes as the functional source of truth—call this out to the user but do not force a PRD.
-     * Otherwise tell the user the issue lacks a PRD and ask whether to proceed without one or to generate it now via `/issue`. Only continue without a PRD if the user explicitly confirms.
+     * Otherwise tell the user the issue lacks a PRD and ask whether to proceed without one or to generate it now with the `issue` skill. Only continue without a PRD if the user explicitly confirms.
 
 3. Analyze the PRD and current state
    - Read the PRD thoroughly: introduction, goals, user stories, functional requirements, non-goals, success metrics, and open questions. If you are operating from a bug brief instead of a PRD, analyze the bug sections (summary, repro steps, scope, hypotheses, evidence) the same way.
@@ -62,5 +65,4 @@ You are running the `/tasks` custom command. Follow this flow every time:
    - Do **not** save anything to disk; Linear is the source of truth.
    - Only proceed to implementation tasks if explicitly instructed.
 
-Remember: `/tasks` is a two-stage conversation. Always pause after the parent tasks until the user types "Go", and keep Linear as the canonical home for the resulting plan.
-"""
+Remember: the **tasks** skill is a two-stage conversation. Always pause after the parent tasks until the user types "Go", and keep Linear as the canonical home for the resulting plan.
