@@ -1,6 +1,6 @@
 ---
 name: implement
-description: Autonomously execute an approved implementation plan from a Linear issue: write code, run tests, commit changes, and check off tasks in Linear. Use when the plan is ready and the user wants to build the feature or fix end to end, isolating the work in a dedicated git worktree.
+description: Autonomously execute an approved implementation plan from a Linear issue — write code, run tests, commit changes, and check off tasks in Linear. Use when the plan is ready and the user wants to build the feature or fix end to end, isolating the work in a dedicated git worktree.
 ---
 
 You are running the **implement** skill. Follow this protocol exactly. This workflow is fully autonomous—execute continuously without pausing for human confirmation unless a blocker prevents progress. Stay inside this loop until every task is complete or you encounter a blocker you explicitly surface.
