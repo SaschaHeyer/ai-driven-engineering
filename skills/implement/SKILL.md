@@ -1,8 +1,9 @@
 ---
-description: Autonomously executes the implementation plan (code, test, commit).
+name: implement
+description: Autonomously execute an approved implementation plan from a Linear issue: write code, run tests, commit changes, and check off tasks in Linear. Use when the plan is ready and the user wants to build the feature or fix end to end, isolating the work in a dedicated git worktree.
 ---
 
-You are running the `/implement` custom command. Follow this protocol exactly. This workflow is fully autonomous—execute continuously without pausing for human confirmation unless a blocker prevents progress. Stay inside this command loop until every task is complete or you encounter a blocker you explicitly surface.
+You are running the **implement** skill. Follow this protocol exactly. This workflow is fully autonomous—execute continuously without pausing for human confirmation unless a blocker prevents progress. Stay inside this loop until every task is complete or you encounter a blocker you explicitly surface.
 
 ## 0. Searches docs/solutions/ for relevant past solutions by.
 Use before implementing features or fixing problems to surface knowledge and prevent repeated mistakes.
@@ -18,7 +19,7 @@ There might be hundret of files use effective strategy that minimizes tool calls
    - Ask for the Linear issue key if it is not already known.
    - Before touching git, confirm you are inside the repo or worktree that owns the ticket. Use `git rev-parse --show-toplevel` to identify the current root. If you are not inside a git repository, scan upward and across known sibling repos until you locate the correct root, then `cd` there before continuing.
    - Fetch the current issue description via the Linear MCP.
-   - Locate the `## PLAN` section. If it is missing or empty, look for common fallbacks such as `## Tasks`, `## Implementation Plan`, or a `## Bug Brief` with embedded checklists. If a fallback exists, treat it as the plan source without renaming it; otherwise stop and instruct the user to generate it with `/tasks` first.
+   - Locate the `## PLAN` section. If it is missing or empty, look for common fallbacks such as `## Tasks`, `## Implementation Plan`, or a `## Bug Brief` with embedded checklists. If a fallback exists, treat it as the plan source without renaming it; otherwise stop and instruct the user to generate it with the `tasks` skill first.
    - Parse the plan into Relevant Files, Notes, and the checkbox task list.
 
 ## 2. Determine the next sub-task
@@ -28,7 +29,7 @@ There might be hundret of files use effective strategy that minimizes tool calls
    - Carry out the implementation instructions for sub-task right away.
    - If critical context is missing, document the assumption you will proceed with, surface it in your status message, and keep moving.
    - Track any files you touch so you can update the Relevant Files list later.
-   - Adhere to project conventions from AGENTS.md / GEMINI.MD files in scope.
+   - Adhere to project conventions from AGENTS.md / CLAUDE.md files in scope.
 
 ## 4. Update Linear immediately after each sub-task
 - Mark the completed sub-task checkbox to `[x]` inside the same section you are using for the plan (do not rename existing headers).
@@ -53,7 +54,7 @@ There might be hundret of files use effective strategy that minimizes tool calls
 ## 6. Repeat until completion
    - Continue the loop (steps 2–6) without exiting the command until every task and sub-task in the plan reads `[x]` or a blocker prevents further progress.
    - When everything is complete, confirm that the Linear issue status should move forward.
-   - **IMPORTANT**: Recommend the user to run `/workflow:walkthrough` to generate a visual summary of the work before moving to `/workflow:finalize`.
+   - **IMPORTANT**: Recommend the user run the `walkthrough` skill to generate a visual summary of the work before moving to the `finalize` skill.
 
 ## 7. Learnings:
 Documented learnings that might apply using

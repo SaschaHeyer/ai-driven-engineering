@@ -2,9 +2,9 @@
 
 [![Watch the Promo Video](assets/promo.gif)](assets/promo.mp4)
 
-**Standardize and automate your engineering process with Gemini CLI.**
+**Standardize and automate your engineering process with Claude Agent Skills.**
 
-This repository houses the **Workflow Extension** for Gemini CLI—a powerful set of autonomous tools designed to guide you through the entire software development lifecycle, from ambiguous idea to merged Pull Request.
+This repository packages the **AI-Driven Engineering** workflow as a set of [Agent Skills](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)—autonomous capabilities that guide you through the entire software development lifecycle, from an ambiguous idea to a merged Pull Request.
 
 It integrates seamlessly with **Linear** (for project management) and **GitHub** (for version control) to keep your focus on shipping value, not managing tickets.
 
@@ -27,34 +27,22 @@ I run AI-driven engineering workshops with companies worldwide—both remote and
 
 ## 📦 Installation
 
-**For Gemini CLI:**
+Install the skills directly from this repository with the [`skills`](https://github.com/vercel-labs/skills) CLI:
+
 ```bash
-gemini extensions install https://github.com/SaschaHeyer/ai-driven-engineering --auto-update
+npx skills add https://github.com/SaschaHeyer/ai-driven-engineering
 ```
 
-**For Claude Code:**
-Open Claude Code in your terminal and run:
-```bash
-/plugin install ai-driven-engineering@SaschaHeyer/ai-driven-engineering
-```
+This drops the workflow skills into your `.claude/skills/` folder. Claude Code discovers them automatically and invokes the right one when your request matches—or you can ask for a skill by name (e.g. "use the issue skill").
 
 ### Local Development
-If you have cloned this repository locally and want to test changes:
+If you have cloned this repository locally and want to test changes, point the installer at your local path:
 
-**For Gemini CLI:**
 ```bash
-gemini extensions link ./workflow-extension
+npx skills add ./ai-driven-engineering
 ```
 
-**For Claude Code:**
-You can start Claude Code and point it to your local directory:
-```bash
-claude --plugin-dir /path/to/ai-driven-engineering
-```
-Or, add it directly via the CLI:
-```bash
-claude plugin add /path/to/ai-driven-engineering
-```
+Or simply copy/symlink the `skills/` directory into `~/.claude/skills/` (personal) or `.claude/skills/` (project).
 
 ---
 
@@ -84,39 +72,41 @@ Imagine one repository, but with 10, 15, or 20 different features and bugs, each
 
 They run in parallel, on the same codebase, completely isolated. **No conflicts. No stash hell.** You can test each agent's work in its own dedicated folder.
 
-This workflow is optimized around standard `git worktree` commands, which are handled automatically for you by the included `git-worktree` skill.
+This workflow is optimized around standard `git worktree` commands, which are handled automatically for you by the included [`git-worktree`](skills/git-worktree/SKILL.md) skill.
 
-The `/implement` command [linked here](commands/engineering/implement.toml) is designed to handle this isolation automatically.
+The [`implement`](skills/implement/SKILL.md) skill is designed to handle this isolation automatically.
 
 ---
 
 ## 🚀 The Workflow
 
-We follow a strict **Define → Plan → Build → Walkthrough → Ship** cycle. This extension provides a specialized AI agent command for each stage.
+We follow a strict **Define → Plan → Build → Walkthrough → Ship** cycle. This repository provides a specialized Agent Skill for each stage.
 
 ```mermaid
 graph LR
-    A[Start] --> B(/issue);
-    B --> C(/tasks);
-    C --> D(/implement);
-    D --> E(/walkthrough);
-    E --> F(/finalize);
+    A[Start] --> B(issue);
+    B --> C(tasks);
+    C --> D(implement);
+    D --> E(walkthrough);
+    E --> F(finalize);
     F --> G[Merged];
 ```
 
-| Stage | Command | Description |
+| Stage | Skill | Description |
 | :--- | :--- | :--- |
-| **1. Define** | `/issue` | Turns a rough idea into a comprehensive **Product Requirements Document (PRD)** or Bug Brief directly in Linear. |
-| **2. Plan** | `/tasks` | Analyzes the PRD and generates a detailed **Implementation Plan** with parent tasks and atomic sub-tasks. |
-| **3. Build** | `/implement` | **The Builder Agent.** Autonomously writes code, runs tests, and commits changes for every task in the plan (using Git Worktrees). |
-| **4. Walkthrough** | `/walkthrough` | **(Experimental)** The Proof Agent. Generates a narrative summary and visual storyboard (screenshots/GIFs) of the changes. |
-| **5. Ship** | `/finalize` | Polishes the worktree, resolves conflicts, and opens/updates the **GitHub Pull Request**. |
+| **1. Define** | `issue` | Turns a rough idea into a comprehensive **Product Requirements Document (PRD)** or Bug Brief directly in Linear. |
+| **2. Plan** | `tasks` | Analyzes the PRD and generates a detailed **Implementation Plan** with parent tasks and atomic sub-tasks. |
+| **3. Build** | `implement` | **The Builder Agent.** Autonomously writes code, runs tests, and commits changes for every task in the plan (using Git Worktrees). |
+| **4. Walkthrough** | `walkthrough` | **(Experimental)** The Proof Agent. Generates a narrative summary and visual storyboard (screenshots/GIFs) of the changes. |
+| **5. Ship** | `finalize` | Polishes the worktree, resolves conflicts, and opens/updates the **GitHub Pull Request**. |
+
+> 💡 Skills are invoked by Claude automatically when your request matches their description, or you can call one explicitly—e.g. "run the issue skill for LIN-123".
 
 ---
 
-## 📖 Command Reference
+## 📖 Skill Reference
 
-### 1. `/issue` (Define)
+### 1. `issue` (Define)
 **"The agent is the PM for five minutes."**
 
 It all starts here. The biggest risk isn't writing the wrong code—it's building the wrong thing. We don't start with code; we start with clarity.
@@ -127,7 +117,7 @@ It all starts here. The biggest risk isn't writing the wrong code—it's buildin
 
 *We are not coding yet. This is just refining what we actually need.*
 
-### 2. `/tasks` (Plan)
+### 2. `tasks` (Plan)
 **"Bridge the gap from product to engineering."**
 
 Now that we know *what* we're building, we figure out *how*. The agent takes the PRD and converts it into a comprehensive **Implementation Plan**.
@@ -139,7 +129,7 @@ Now that we know *what* we're building, we figure out *how*. The agent takes the
 
 *This is our roadmap. We (the engineers) review and validate this plan before a single line of code is written.*
 
-### 3. `/implement` (Build)
+### 3. `implement` (Build)
 **"Where the magic happens."**
 
 This step runs as a fully autonomous loop. The agent becomes your pair programmer.
@@ -152,7 +142,7 @@ This step runs as a fully autonomous loop. The agent becomes your pair programme
 
 *It runs continuously until the plan is complete or it gets blocked, at which point it pauses to notify you.*
 
-### 4. `/walkthrough` (Experimental)
+### 4. `walkthrough` (Experimental)
 **"Seeing is believing."**
 
 After implementation is complete, the agent provides a human-readable summary and visual proof of what was built. This is essential for stakeholders and reviewers.
@@ -163,10 +153,10 @@ After implementation is complete, the agent provides a human-readable summary an
 
 *This turns raw commits into a clear, professional update for the rest of the team.*
 
-### 5. `/finalize` (Ship)
+### 5. `finalize` (Ship)
 **"The finishing touch."**
 
-Once implementation is complete, we prepare for delivery. This command ensures your work is clean, consistent, and ready for review.
+Once implementation is complete, we prepare for delivery. This skill ensures your work is clean, consistent, and ready for review.
 
 1.  **Clean Up**: Checks for any unstaged changes or leftover artifacts in the worktree.
 2.  **Update**: Fetches the latest `development` branch and rebases or merges to ensure your feature is up-to-date.
@@ -175,54 +165,50 @@ Once implementation is complete, we prepare for delivery. This command ensures y
 
 ---
 
-## 🧰 Included Skills & MCPs
+## 🧰 Supporting Skills
 
-This extension includes specialized agent skills and integrations to assist in the workflow. These are automatically invoked by the commands when needed:
+Beyond the five workflow stages, these helper skills are invoked automatically when needed:
 
-### 1. `git-worktree`
+### `git-worktree`
 Manages Git worktrees to allow isolated, parallel development. Instead of switching branches in your main directory, this skill:
 - Creates a new isolated worktree and branch for the feature or bug (e.g., `worktrees/feature/<ticket-id>`).
 - Evaluates the codebase for local files (like `.env` or configurations) and **copies** them from the original repository into the worktree.
 - Ensures you can have multiple agents working on different tickets simultaneously without overlapping while maintaining a functional local environment.
 
-### 2. `document-learnings`
+### `document-learnings`
 A frictionless way to capture solved problems and project-specific knowledge.
 - Automatically invoked when a solution is found or a problem is fixed during implementation.
 - Creates concise, searchable markdown files in `docs/learnings/` (e.g., `YYYY-MM-DD-short-topic.md`).
 - Helps agents surface past solutions to prevent repeating the same mistakes in future tasks.
 
-### 3. Chrome DevTools MCP
-Integrated browser automation that allows the agent to verify UI changes visually.
-- Used by `/walkthrough` to navigate local development servers.
-- Capable of taking screenshots and performing user actions (click, type, hover) to demonstrate new features.
+### Chrome DevTools MCP
+The `walkthrough` skill uses browser automation to verify UI changes visually. Install the [Chrome DevTools MCP](https://github.com/ChromeDevTools/chrome-devtools-mcp) separately and connect it to Claude Code:
+
+```bash
+claude mcp add browser -- npx -y @chromedevtools/mcp
+```
+
+It navigates local development servers, takes screenshots, and performs user actions (click, type, hover) to demonstrate new features.
 
 ---
 
 ## 🛠 Prerequisites
 
-To use this workflow effectively, ensure you have the following configured in your Gemini CLI or environment:
+To use this workflow effectively, ensure you have the following configured:
 
-1.  **Gemini CLI** (Latest version)
-2.  **Linear MCP** (Configured with your API key)
-3.  **Chrome DevTools MCP** (Installed via the extension)
-4.  **GitHub CLI** (`gh` tool installed and authenticated)
-5.  **Git** (Initialized repository)
+1.  **Claude Code** (latest version)
+2.  **Linear MCP** (configured with your API key)
+3.  **Chrome DevTools MCP** (for the `walkthrough` skill)
+4.  **GitHub CLI** (`gh` installed and authenticated)
+5.  **Git** (initialized repository)
 
 ---
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please follow the existing patterns defined in `commands/engineering/*.toml` and ensure any changes to the workflow logic are reflected in `GEMINI.md`.
-
-**Updating Commands:**
-This repository supports both Gemini CLI and Claude Code. The Gemini `.toml` files are the "Source of Truth". 
-If you add or modify a command in `commands/engineering/`, or update `GEMINI.md`, you must run the sync script to generate the Claude Code equivalents before committing:
-
-```bash
-node scripts/sync-claude.mjs
-```
-*(Note: A GitHub Action is also configured to run this automatically on push to `main` as a safety net).*
+Contributions are welcome! Each skill lives in its own directory under [`skills/`](skills/) as a `SKILL.md` file with YAML frontmatter (`name` + `description`) followed by the instructions.
 
 1.  Fork the repo.
 2.  Create a feature branch.
-3.  Submit a PR (ironically, you can use the workflow to build the workflow).
+3.  Add or edit a skill under `skills/<name>/SKILL.md`, keeping the `description` clear about *what* the skill does and *when* to use it (this is what Claude uses to trigger it).
+4.  Submit a PR (ironically, you can use the workflow to build the workflow).

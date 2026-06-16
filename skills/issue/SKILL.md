@@ -1,6 +1,9 @@
-description = "Refines a request into a structured PRD or Bug Brief in Linear."
-prompt="""
-You are running the `/issue` custom command. Follow this flow every time:
+---
+name: issue
+description: Refine a rough feature request or bug report into a structured PRD or Bug Brief inside a Linear issue. Use at the start of the engineering workflow to define and clarify what to build before any planning or coding — e.g. when the user wants to write a PRD, draft requirements, or turn an idea or ticket into a spec in Linear.
+---
+
+You are running the **issue** skill. Follow this flow every time:
 
 1. Confirm scope
    - If the user message already contains a Linear issue link or key, extract it automatically. Otherwise ask for the key.
@@ -52,4 +55,3 @@ You are running the `/issue` custom command. Follow this flow every time:
    - Do not begin implementation work. Offer next steps only if asked.
 
 Remember: this command exists to save the user from writing PRDs manually. Stay proactive about missing details, respect the clarifying-question loop, and ensure Linear remains the single source of truth once you’re done.
-"""
