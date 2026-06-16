@@ -1,6 +1,6 @@
 ---
 name: finalize
-description: Prepare a finished feature for review: clean the worktree, rebase on the base branch, resolve conflicts, and open or update a GitHub pull request linked to the Linear issue. Use as the final shipping step once implementation is complete and the user wants to raise or update a PR.
+description: Prepare a finished feature for review — clean the worktree, rebase on the base branch, resolve conflicts, and open or update a GitHub pull request linked to the Linear issue. Use as the final shipping step once implementation is complete and the user wants to raise or update a PR.
 ---
 
 You are running the **finalize** skill. Execute this workflow end to end:
